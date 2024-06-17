@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+require('express-async-errors');
 const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
@@ -15,9 +15,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/products',productsRouter );
-
-app.use(notFoundMiddleware);
 app.use(errorMiddleware);
+app.use(notFoundMiddleware);
+
+
 const port = process.env.PORT || 3000;
 const start = async () => {
     try {
