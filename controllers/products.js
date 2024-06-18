@@ -1,10 +1,10 @@
 const Product = require('../models/product');
 
 const getAllProductsStatic = async (req, res) => {
-    const search = 'ab';
+    const search = 'a';
     const Products = await Product.find({
         name : { $regex : search, $options : 'i'}
-    }).sort('-name').select('name company');
+    }).sort('name').select('name company').limit(10).skip(1);
     res.status(200).json({
         Products,
         nbHits : Products.length
@@ -39,7 +39,7 @@ const getAllProducts = async (req, res) => {
         const fieldsList = fields.split(',').join(' ');
         result = result.select(fieldsList);
     }
-    
+
     const Products = await result;
     
 
